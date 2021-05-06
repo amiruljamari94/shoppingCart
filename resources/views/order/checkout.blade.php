@@ -10,18 +10,18 @@
         
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
-            <form action="" method="POST" class="needs-validation" novalidate="">
+            <form action="{{ route('order.placeOrder') }}" method="POST" class="needs-validation" novalidate="">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="{{ old('name') }}">
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
 
-                        @error('name')
+                        {{-- @error('name')
                         <div class="invalid-feedback">
                             {{ $errors->first('name') }}
                         </div>
-                        @enderror
+                        @enderror --}}
 
                     </div>
                     
@@ -29,60 +29,60 @@
             
                 <div class="mb-3">
                     <label for="email">Email <span class="text-muted"></span></label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="you@example.com"  value="{{ old('email') }}">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com"  value="">
 
-                    @error('email')
+                    {{-- @error('email')
                         <div class="invalid-feedback">
                             {{ $errors->first('email') }}
                         </div>
-                    @enderror
+                    @enderror --}}
                     
                 </div>
                 <div class="mb-3">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" id="address" placeholder="1234 Main St" value="{{ old('address') }}">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="1234 Main St" value="{{ old('address') }}">
 
-                    @error('address')
+                    {{-- @error('address')
                         <div class="invalid-feedback">
                             {{ $errors->first('address') }}
                         </div>
-                    @enderror
+                    @enderror --}}
 
                 </div>
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
-                        <input type="text" class="form-control @error('country') is-invalid @enderror" placeholder="country" name="country" value="{{ old('country') }}">
+                        <input type="text" class="form-control" placeholder="country" name="country" value="{{ old('country') }}">
 
-                        @error('country')
+                        {{-- @error('country')
                         <div class="invalid-feedback">
                             {{ $errors->first('country') }}
                         </div>
-                    @enderror
+                    @enderror --}}
                         
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="state">State</label>
-                        <input type="text" class="form-control @error('state') is-invalid @enderror" placeholder="country" name="state" value="{{ old('state') }}">
+                        <input type="text" class="form-control" placeholder="country" name="state" value="">
                     
-                    @error('state')
+                    {{-- @error('state')
                         <div class="invalid-feedback">
                             {{ $errors->first('state') }}
                         </div>
-                    @enderror
+                    @enderror --}}
 
                     </div>
 
                     <div class="col-md-3 mb-3">
                         <label for="zip">Postcode</label>
-                        <input type="text" class="form-control @error('postcode') is-invalid @enderror" id="zip" placeholder="" name="postcode" value="{{ old('postcode') }}">
+                        <input type="text" class="form-control" id="zip" placeholder="" name="postcode" value="">
 
-                    @error
+                    {{-- @error
                         <div class="invalid-feedback">
                             {{ $errors->first('postcode') }}
                         </div>
-                    @enderror
+                    @enderror --}}
 
                     </div>
                 </div>
@@ -140,6 +140,6 @@
             <li class="list-inline-item"><a href="#">Support</a></li>
         </ul>
     </footer>
-</>
+</div>
 
 @endsection

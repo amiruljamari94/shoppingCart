@@ -37,7 +37,7 @@ Route::post('/order', 'OrderController@placeOrder')->name('order.placeOrder');
 Route::get('/orderHistory', 'OrderController@orderHistory')->name('order.history');
 
 //checkout
-Route::get('/checkout', 'OrderController@checkout')->name('checkout');
+Route::post('/checkout', 'OrderController@checkout')->name('checkout');
 
 Route::get('/cart/empty', function(){
     Cart::destroy();

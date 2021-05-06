@@ -7,44 +7,48 @@ use App\Order;
 use App\Cart;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\OrderRequest;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
 
-    public function placeOrder(OrderRequest $request)
+    public function placeOrder(Request $request)
     {
         $authId = Auth::user()->id;
         $carts = Cart::where('user_id', $authId)->get();
         $orderQuery = Order::where('user_id', $authId)->orderBy('created_at', 'DESC')->first();
 
+        $batch = 1;
         if($orderQuery)
         {
             $batch = $orderQuery->batch+1;
         }
 
-
-        foreach($carts as $cart)
+        DB::transaction(function () use($carts, $request, $batch)  {
+            foreach($carts as $cart)
         {
             $order = [
-                'user_id' => $request($cart->user_id),
-                'product_id' => $request($cart->product_id),
-                'product_name' => $request($cart->productFK->name),
-                'product_price' => $request($cart->productFK->price),
-                'status' => $request($cart->productFK->status),
-                'name' => $request('name'), 
-                'email'  => $request('email'),
-                'address'  => $request('address'),
-                'country'  => $request('country'),
-                'state'  => $request('name'),
-                'postcode' => $request('name')
+                'user_id' => $cart->user_id,
+                'product_id' => $cart->product_id,
+                'product_name' => $cart->productFK->name,
+                'product_price' => $cart->productFK->price,
+                'status' => 'paid',
+                'batch' => $batch,
+                'name' => $request['name'], 
+                'email'  => $request['email'],
+                'address'  => $request['address'],
+                'country'  => $request['country'],
+                'state'  => $request['state'],
+                'postcode' => $request['postcode']
             ];
 
             Order::create($order);
             Cart::find($cart->id)->delete(); 
-
         }
+            
+        });
         
-        return view('order.checkout')->with(compact('carts', 'order'));
+        return view('order.history')->with(compact('carts'));
     }
 
     public function checkout()
@@ -54,7 +58,8 @@ class OrderController extends Controller
 
     public function orderHistory()
     {
-        return view('order.history');
+        $orderHistory = Order::get()->groupBy('batch');
+        return view('order.history')->with(compact('orderHistory'));
     }
     
 }

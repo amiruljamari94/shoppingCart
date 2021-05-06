@@ -9,10 +9,13 @@
   $shippingFee = 6.90;
 @endphp
 
+<form action="{{ route('checkout') }}" method="post">
+    @csrf
 <div class="container mb-4">
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
+                
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -87,14 +90,16 @@
                 <div class="col-sm-12  col-md-6">
                     <button class="btn btn-block btn-light">Continue Shopping</button>
                 </div>
-                    <form action="{{ route('checkout') }}" method="get">
+                    {{-- <form action="{{ route('checkout') }}" method="get"> --}}
                         <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
-                    </form>  
+                    {{-- </form>   --}}
                 </div>
 
             </div>
         </div>
     </div>
+
 </div>
+</form>
 
 @endsection

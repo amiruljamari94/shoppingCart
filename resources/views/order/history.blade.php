@@ -9,26 +9,23 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">User ID</th>
-            <th scope="col">Product ID</th>
-            <th scope="col">Shipping Information</th>
-            <th scope="col">Subtotal</th>
+            <th scope="col">Batch</th>
             <th scope="col">Delivery Address</th>
-            <th scope="col">Order Time</th>
-            <th scope="col">Payment Time</th>
+            <th scope="col">order Status</th>      
         </tr>
+
+
         </thead>
         <tbody>
-        <tr>
-            
-        </tr>
-        <tr>
-            
-        </tr>
-        <tr>
-            
-        </tr>
+            @foreach($orderHistory as $orHistory)
+            <tr>
+                <td>{{ $orHistory->batch }}</td>
+                <td>{{ $orHistory->address }}</td>
+                <td>{{ $orHistory->status }}</td>
+            </tr>
+                
+            @endforeach
+
         </tbody>
     </table>
 
